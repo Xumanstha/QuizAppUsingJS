@@ -76,6 +76,11 @@ let count = 0;
 let selectedAnswer = "";
 let Total = AllQuestions.length;
 let Marks = 0;
+let intervalId;
+let Timer = 15;
+function handleInterval() {
+    intervalId = setInterval(CountIncrement, 1000);
+}
 
 
 const option1 = document.getElementById("option1");
@@ -86,6 +91,7 @@ const quizBox = document.getElementById("quiz-container");
 const Quiz = document.getElementById("Quiz");
 const ProgressBar = document.getElementById("progress-bar");
 const ResultBox = document.getElementById("Result-Box");
+const Counter = document.getElementById("timecounter");
 
 
 const buttons = document.querySelectorAll(".option-btn");
@@ -105,6 +111,7 @@ function QuestionChange() {
     option4.innerText = AllQuestions[count].option4;
 }
 
+startTimer();
 
 quizBox.addEventListener('submit', function (event) {
     event.preventDefault();
@@ -112,35 +119,33 @@ quizBox.addEventListener('submit', function (event) {
         if (AllQuestions[count].checkAnswer(selectedAnswer)) {
             Marks++;
         }
-        count++;
-        let progress = ((count + 1) / Total) * 100;
-        quizBox.style.display = "none"
-        document.getElementById('loader').style.display = "block";
-        ProgressBar.style.width = `${progress}%`;
-        if (count === Total) {
-            quizBox.style.display = "none"
-            let result = document.createElement("h2");
-            result.innerText = `${Marks}/${Total}  ✊ `;
-            ResultBox.appendChild(result);
-            setTimeout(() => {
-                selectedAnswer = "";
-                ResultBox.style.display = "block";
-                document.getElementById('loader').style.display = "none";
-            }, 1000);
-        } else {
-            buttons.forEach(b => b.classList.remove("selected"));
-            setTimeout(() => {
-                QuestionChange();
-                selectedAnswer = "";
-                document.getElementById('loader').style.display = "none";
-                quizBox.style.display = "block";
-            }, 1000);
-        }
+        StopInterval();
+        Timer = 15;
+        Submit();
     }
 
 });
 
 
+function startTimer() {
+    Counter.innerText = `${Timer}/${Timer}`;
+    handleInterval();
+    console.log(Number(Timer));
+}
+
+
+function CountIncrement() {
+    let total = 15;
+    if (Timer >= 0) {
+        Counter.innerText = `${Timer--}/${total}`;
+    }
+    else {
+        Counter.innerText = "Times Up";
+        StopInterval();
+        Timer = 15;
+        Submit();
+    }
+}
 
 
 buttons.forEach(btn => {
@@ -155,3 +160,37 @@ buttons.forEach(btn => {
     });
 });
 
+
+
+function Submit() {
+    count++;
+    let progress = ((count + 1) / Total) * 100;
+    quizBox.style.display = "none"
+    document.getElementById('loader').style.display = "block";
+    ProgressBar.style.width = `${progress}%`;
+    if (count === Total) {
+        quizBox.style.display = "none"
+        let result = document.createElement("h2");
+        result.innerText = `${Marks}/${Total}  ✊ `;
+        ResultBox.appendChild(result);
+        setTimeout(() => {
+            selectedAnswer = "";
+            ResultBox.style.display = "block";
+            document.getElementById('loader').style.display = "none";
+        }, 1000);
+    } else {
+        buttons.forEach(b => b.classList.remove("selected"));
+        setTimeout(() => {
+            QuestionChange();
+            selectedAnswer = "";
+            document.getElementById('loader').style.display = "none";
+            quizBox.style.display = "block";
+        }, 1000);
+        startTimer();
+    }
+}
+
+
+function StopInterval() {
+    clearInterval(intervalId);
+}

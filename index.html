@@ -6,6 +6,9 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Quiz App</title>
   <link rel="stylesheet" href="style.css">
+  <style>
+  
+  </style>
 </head>
 
 <body>
@@ -13,7 +16,11 @@
     <div id="loader" style="display:none;"></div>
     <h1>Quiz App</h1>
     <Form class="quiz-container" id="quiz-container">
-      <p id="question"></p>
+      <div class="timer" id="timer">
+        <span>Timer:&nbsp</span><span id="timecounter"></span>
+      </div>
+      <p id="question">
+      </p>
       <ul class="options">
         <li><span>A.</span><button id="option1" class="option-btn" type="button"></button></li>
         <li><span>B.</span><button id="option2" class="option-btn" type="button"></button></li>
