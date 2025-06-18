@@ -9,6 +9,26 @@ body {
   height: 100vh;
 }
 
+.timer {
+      width: 10vw;
+      /* border: 1px solid black; */
+      margin: auto;
+      /* background-color: aqua; */
+      display: flex;
+      justify-content: center;
+      /* gap: 2vw; */
+    }
+
+    .timer span {
+      width: 30%;
+      /* display: flex; */
+      font-size: larger;
+      font-weight: 800;
+      color:#00bcd4;
+      /* justify-content: flex-start; */
+      /* border: 1px solid black; */
+    }
+
 .mainContainer{
  background-color: white;
   border-radius: 10px;
