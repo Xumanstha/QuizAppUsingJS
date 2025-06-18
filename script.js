@@ -128,7 +128,7 @@ quizBox.addEventListener('submit', function (event) {
 
 
 function startTimer() {
-    Counter.innerText = `${Timer}/${Timer}`;
+    Counter.innerText = `${Timer}`;
     handleInterval();
     console.log(Number(Timer));
 }
@@ -137,7 +137,7 @@ function startTimer() {
 function CountIncrement() {
     let total = 15;
     if (Timer >= 0) {
-        Counter.innerText = `${Timer--}/${total}`;
+        Counter.innerText = `${Timer--}`;
     }
     else {
         Counter.innerText = "Times Up";
